@@ -82,11 +82,12 @@ func _physics_process(delta: float) -> void:
 
 		velocity.x = move_toward(velocity.x, 0, speed * speed_mult)
 		velocity.z = move_toward(velocity.z, 0, speed * speed_mult)
-
+	
 	move_and_slide()
 
 func on_interact(obj: Object) -> void:
-	obj.on_interact()
+	return
+	# obj.toggle_interact()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not input_active: return
@@ -97,6 +98,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		rotation.x = clamp(rotation.x, PI / - 2, PI / 2)
 		if bone: bone.rotation.x = clamp(bone.rotation.x, -PI / 2, PI / 2)
+		ray.force_raycast_update()
 
 func set_input_active(act: bool) -> void:
 		print("\nsetting input -> %s" % act)

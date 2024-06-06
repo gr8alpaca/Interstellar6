@@ -2,59 +2,55 @@ class_name Interactable extends Area3D
 
 const INTERACT_LAYER: int = 3
 
-enum {CURSOR_CIRCLE}
-
 signal hover_started
 signal hover_finished
 
 signal interaction_started
 signal interaction_finished
 
-## Cursor to change to when hovered
-@export var hover_cursor: int = UI.CURSOR_OPEN_HAND
-@export var interacting_cursor: int = UI.CURSOR_CLOSED_HAND
+@onready var root: Node3D: set = set_root_node
 
 var interaction_active: bool = false: set = set_interaction_active
-var is_interaction_hovered: bool = false: set = set_interaction_hovered
+
+var is_hovered: bool = false: set = set_interaction_hovered
 
 func _ready() -> void:
-	if not get_collision_layer_value(INTERACT_LAYER):
-		set_collision_layer_value(3, true)
+	set_collision_layer_value(3, true)
 
-	var parent_node: Node = get_parent()
-
-	for sig: Signal in [interaction_finished, interaction_started, hover_started, hover_finished]:
-		var method_name: StringName = "_on_" + sig.get_name()
-		if method_name in parent_node:
-			var err: int = sig.connect(Callable(parent_node, method_name))
-			print("Signal %s -> Connected: %s"%[sig.get_name(), error_string(err)])
-			
-func set_interaction_hovered(is_hovered: bool) -> void:
-	if is_interaction_hovered == is_hovered: return
-
-	is_interaction_hovered = is_hovered
-
-	if is_interaction_hovered:
-		hover_started.emit()
-		Events.change_cursor.emit(hover_cursor)
-	else:
-		hover_finished.emit()
-		Events.change_cursor.emit(UI.CURSOR_CIRCLE)
+func set_interaction_hovered(val: bool) -> void:
+	is_hovered = val
 
 func set_interaction_active(act: bool) -> void:
-	if act == interaction_active: return
-
 	interaction_active = act
+	print("Interaction set: %s" % act)
+	if interaction_active: interaction_started.emit()
+	else: interaction_finished.emit()
 
-	if act:
-		interaction_started.emit()
-
-	else:
-		interaction_finished.emit()
-
-func on_interact() -> void:
+func interact() -> void:
 	interaction_active = !interaction_active
 
-## Set to just emit the interaciton finished signal by default
+func ray_enter() -> void:
+	is_hovered = true
+	hover_started.emit()
+	print("Ray ENTER")
+
+func ray_exit() -> void:
+	interaction_active = false
+	is_hovered = false
+	hover_finished.emit()
+	print("Ray EXIT")
+func start_interaction() -> void:
+	interaction_active = true
+	print("Grab ENTER")
 func end_interaction() -> void:
 	interaction_active = false
+	print("Grab EXIT")
+	
+## Sets root and connects all signals
+func set_root_node(node: Node3D) -> void:
+	root = node
+	for sig: Signal in [interaction_finished, interaction_started, hover_started, hover_finished]:
+		var method_name: StringName = "_on_" + sig.get_name()
+		if method_name in root:
+			var err: int = sig.connect(root.get(method_name))
+			print("Signal %s -> Connected: %s" % [sig.get_name(), error_string(err)])

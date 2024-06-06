@@ -4,11 +4,11 @@ extends Node
 
 var player: CharacterBody3D
 var interact: InteractionHandler
-var hold: Node3D
+var ui: UI
+
 
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
-	
 
 func _input(event: InputEvent) -> void:
 	if not event.is_pressed(): return

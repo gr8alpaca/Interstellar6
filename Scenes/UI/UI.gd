@@ -1,4 +1,3 @@
-@tool
 class_name UI extends CanvasLayer
 
 @onready var interact_label: Label = %InteractLabel
@@ -40,16 +39,17 @@ const DEFAULT_CURSOR: int = CURSOR_CIRCLE
 		cursor_outline_color = val
 		if cursor_node: cursor_node.queue_redraw()
 
+func _init() -> void:
+	Global.ui = self
+
 func _ready() -> void:
 	# var center_pos := get_viewport().get_visible_rect().get_center()
+	
 	clear_debug_labels()
 	cursor_node.draw.connect(_on_cursor_draw)
 	cursor_node.queue_redraw()
 
 	Events.debug_label.connect(set_debug_labels)
-	
-	Events.change_cursor.connect(_on_change_cursor)
-	Events.change_cursor.connect(cursor_node.queue_redraw.unbind(1))
 
 func _on_cursor_draw() -> void:
 	match cursor_index:
@@ -67,7 +67,7 @@ func _on_cursor_draw() -> void:
 				false,
 				true, )
 	
-func _on_change_cursor(val: int) -> void:
+func set_cursor_index(val: int) -> void:
 	cursor_index = val
 
 func _process(delta: float) -> void:

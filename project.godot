@@ -112,6 +112,11 @@ interact={
 ]
 }
 
+[physics]
+
+3d/default_linear_damp=0.5
+3d/default_angular_damp=1.0
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

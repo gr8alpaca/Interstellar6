@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://mu52igusluh0"]
 
 [ext_resource type="Script" path="res://Scripts/Item3D.gd" id="1_v2igj"]
-[ext_resource type="Material" uid="uid://bsegwifmsowy" path="res://Resources/BoxMaterial.tres" id="2_ogv1i"]
+[ext_resource type="Material" uid="uid://bsegwifmsowy" path="res://Resources/Materials/BoxMaterial.tres" id="2_ogv1i"]
 [ext_resource type="Script" path="res://Scripts/Interactable.gd" id="2_ydpv5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_yocdf"]
@@ -9,9 +9,11 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_eq7sx"]
 
 [node name="Box" type="RigidBody3D"]
-input_ray_pickable = false
+input_capture_on_drag = true
 contact_monitor = true
 max_contacts_reported = 10
+linear_damp = 0.2
+angular_damp = 0.2
 script = ExtResource("1_v2igj")
 debug_material = ExtResource("2_ogv1i")
 
