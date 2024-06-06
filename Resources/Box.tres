@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://cetjp5yqujksh"]
+
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="1_agfvw"]
+
+[resource]
+script = ExtResource("1_agfvw")
+name = &"Box"
+qty = 1
+is_droppable = true
+description = "INVALID ITEM"

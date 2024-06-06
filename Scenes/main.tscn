@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3e1iy7k68pn8"]
+
+[ext_resource type="PackedScene" uid="uid://snpqsqtk148f" path="res://Scenes/Player/player.tscn" id="1_hbpj1"]
+[ext_resource type="PackedScene" uid="uid://mu52igusluh0" path="res://Scenes/Box.tscn" id="2_l17rl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0b4qv"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_jn0db"]
+sky_material = SubResource("ProceduralSkyMaterial_0b4qv")
+
+[sub_resource type="Environment" id="Environment_vilut"]
+background_mode = 2
+sky = SubResource("Sky_jn0db")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_508ge"]
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vilut")
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(30, 1, 30)
+material = SubResource("StandardMaterial3D_508ge")
+
+[node name="Char" parent="." node_paths=PackedStringArray("bone", "tree", "ray", "interact_handler") instance=ExtResource("1_hbpj1")]
+bone = NodePath("Skeleton3D/BoneAttachment3D")
+tree = NodePath("AnimationTree")
+ray = NodePath("Camera3D/InteractionHandler/InteractRay")
+interact_handler = NodePath("Camera3D/InteractionHandler")
+
+[node name="Node3D" parent="." instance=ExtResource("2_l17rl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -2.94218)

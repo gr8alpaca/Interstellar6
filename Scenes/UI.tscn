@@ -1,0 +1,133 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1tiji476a1kc"]
+
+[ext_resource type="Script" path="res://Script/UI.gd" id="1_0g45p"]
+[ext_resource type="Texture2D" uid="uid://buwypf2thwll5" path="res://Asset/Textures/UI/CircleCursor.tres" id="2_wxb0x"]
+[ext_resource type="FontFile" uid="uid://c880bso4h4167" path="res://Asset/Fonts/Lato-Black.ttf" id="3_t6b5d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_slomh"]
+line_spacing = 0.0
+font = ExtResource("3_t6b5d")
+font_size = 15
+font_color = Color(1, 1, 1, 0.862745)
+outline_size = 2
+outline_color = Color(0, 0, 0, 0.701961)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.701961)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ooeib"]
+line_spacing = 0.0
+font = ExtResource("3_t6b5d")
+font_size = 17
+font_color = Color(1, 1, 1, 0.447059)
+outline_size = 1
+outline_color = Color(0, 0, 0, 0.701961)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.701961)
+
+[sub_resource type="LabelSettings" id="LabelSettings_edrq3"]
+line_spacing = 0.0
+font = ExtResource("3_t6b5d")
+font_size = 17
+font_color = Color(1, 1, 1, 0.862745)
+outline_size = 2
+outline_color = Color(0, 0, 0, 0.701961)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.701961)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qksus"]
+line_spacing = 0.0
+font = ExtResource("3_t6b5d")
+font_size = 17
+font_color = Color(1, 1, 1, 0.862745)
+outline_size = 2
+outline_color = Color(0, 0, 0, 0.701961)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.701961)
+
+[node name="UI" type="CanvasLayer" groups=["UI"]]
+layer = 5
+script = ExtResource("1_0g45p")
+
+[node name="Cursor" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+texture = ExtResource("2_wxb0x")
+expand_mode = 1
+
+[node name="InteractLabel" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = 12.0
+offset_right = 43.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(56, 0)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "sampletext"
+label_settings = SubResource("LabelSettings_slomh")
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 128
+
+[node name="HBoxDebug" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 37.0
+grow_horizontal = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Debug" type="Label" parent="HBoxDebug"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Debug: Value"
+label_settings = SubResource("LabelSettings_ooeib")
+horizontal_alignment = 2
+vertical_alignment = 1
+justification_flags = 128
+
+[node name="Debug1" type="Label" parent="HBoxDebug"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+label_settings = SubResource("LabelSettings_edrq3")
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 128
+
+[node name="Debug2" type="Label" parent="HBoxDebug"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+label_settings = SubResource("LabelSettings_qksus")
+vertical_alignment = 1
+justification_flags = 128
