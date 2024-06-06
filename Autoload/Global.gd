@@ -4,6 +4,8 @@ extends Node
 
 var player: CharacterBody3D
 var interact: InteractionHandler
+var cam: Camera3D
+
 var ui: UI
 
 

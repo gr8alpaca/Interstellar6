@@ -10,42 +10,44 @@ signal interaction_finished
 
 @onready var root: Node3D: set = set_root_node
 
+@export var is_holdable: bool
+
+@export var debug: bool = false
+
 var interaction_active: bool = false: set = set_interaction_active
 
 var is_hovered: bool = false: set = set_interaction_hovered
 
 func _ready() -> void:
 	set_collision_layer_value(3, true)
+	Global.cam = get_viewport().get_camera_3d()
 
 func set_interaction_hovered(val: bool) -> void:
+	if debug:	print("Hovered set: %s" % val)
+	
 	is_hovered = val
+	if val: hover_started.emit()
+	else: hover_finished.emit()
 
 func set_interaction_active(act: bool) -> void:
+	if debug:	print("Interaction set: %s" % act)	
 	interaction_active = act
-	print("Interaction set: %s" % act)
+
 	if interaction_active: interaction_started.emit()
 	else: interaction_finished.emit()
 
-func interact() -> void:
-	interaction_active = !interaction_active
-
 func ray_enter() -> void:
 	is_hovered = true
-	hover_started.emit()
-	print("Ray ENTER")
 
 func ray_exit() -> void:
 	interaction_active = false
 	is_hovered = false
-	hover_finished.emit()
-	print("Ray EXIT")
+
 func start_interaction() -> void:
 	interaction_active = true
-	print("Grab ENTER")
 func end_interaction() -> void:
 	interaction_active = false
-	print("Grab EXIT")
-	
+
 ## Sets root and connects all signals
 func set_root_node(node: Node3D) -> void:
 	root = node
@@ -53,4 +55,5 @@ func set_root_node(node: Node3D) -> void:
 		var method_name: StringName = "_on_" + sig.get_name()
 		if method_name in root:
 			var err: int = sig.connect(root.get(method_name))
-			print("Signal %s -> Connected: %s" % [sig.get_name(), error_string(err)])
+			if debug:
+				print("Signal %s -> Connected: %s" % [sig.get_name(), error_string(err)])

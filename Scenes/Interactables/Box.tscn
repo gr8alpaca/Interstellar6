@@ -15,7 +15,16 @@ max_contacts_reported = 10
 linear_damp = 0.2
 angular_damp = 0.2
 script = ExtResource("1_v2igj")
+grab_speed = null
+item_name = null
+additional_hold_distance = null
+hold_cursor = null
+debug = null
 debug_material = ExtResource("2_ogv1i")
+standard_color = null
+hold_color = null
+hover_color = null
+hold_active = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_yocdf")

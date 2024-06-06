@@ -15,6 +15,7 @@ const ROTATE_SENSITIVITY: float = 3.0
 @export var hold_cursor: int = UI.CURSOR_CLOSED_HAND
 
 @export_group("Debug")
+@export var debug: bool = false
 @export var debug_material: StandardMaterial3D
 @export var standard_color: Color = Color.WHITE_SMOKE
 @export var hold_color: Color = Color.DARK_ORANGE
@@ -25,9 +26,12 @@ const ROTATE_SENSITIVITY: float = 3.0
 		hold_active = val
 		set_physics_process(val)
 		set_process_input(val)
+		if sleeping:
+			sleeping = false
 		update_debug_color()
 
 func _ready() -> void:
+	
 	add_to_group(GROUP)
 
 	hold_active = false
@@ -36,6 +40,7 @@ func _ready() -> void:
 
 func _on_interaction_started() -> void:
 	hold_active = true
+
 func _on_interaction_finished() -> void:
 	hold_active = false
 
@@ -52,10 +57,15 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		if event is InputEventMouseMotion:
-
-			angular_velocity.y = event.relative.x / 10 * ROTATE_SENSITIVITY
 			
-			angular_velocity.x = event.relative.y / 10 * ROTATE_SENSITIVITY
+			angular_velocity.y = event.relative.x / 10 * ROTATE_SENSITIVITY
+
+			var y_del: float = event.relative.y / 10 * ROTATE_SENSITIVITY
+			
+			var dir: Vector3 = Global.cam.global_position.direction_to(global_position)
+
+			angular_velocity.x = lerpf(0.0, y_del, dir.dot(Vector3.FORWARD))
+			angular_velocity.z = lerpf(0.0, y_del, dir.dot(Vector3.RIGHT))
 
 			get_viewport().set_input_as_handled()
 

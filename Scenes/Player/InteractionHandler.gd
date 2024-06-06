@@ -11,6 +11,8 @@ signal ray_exit
 
 @onready var ray: RayCast3D = %InteractRay
 
+@export var debug: bool = false
+
 @export var ui: UI
 
 @export var item: Interactable:
@@ -28,7 +30,8 @@ signal ray_exit
 @export_enum("IDLE", "HOVER", "HOLD", "ROTATE", "DISABLED") var state: int = IDLE:
 	set(new_state):
 		# if state == new_state: return
-		print("State change : %s -> %s" % [STATE_NAMES[state], STATE_NAMES[new_state]])
+		if debug:
+			print("State change : %s -> %s" % [STATE_NAMES[state], STATE_NAMES[new_state]])
 		
 		match new_state:
 			IDLE:
@@ -38,7 +41,8 @@ signal ray_exit
 			HOVER:
 				item.ray_enter()
 			HOLD, ROTATE:
-				item.start_interaction()
+				if state not in [HOLD, ROTATE]:
+					item.start_interaction()
 
 		state = new_state
 		update_ui()
@@ -71,7 +75,7 @@ func update_ui() -> void:
 
 	ui.set_cursor_index(state)
 
-	var cursor_text: String = item.root.name if item else &""
+	var cursor_text: String = String(item.root.name) if item else ""
 	ui.set_debug_labels(cursor_text, -1)
 	ui.set_debug_labels("State: " + STATE_NAMES[state], 0)
 
@@ -80,12 +84,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if not Input.is_action_pressed("interact"):
 		state = HOVER
+		
 	elif Input.is_action_just_pressed("interact"):
 		state = HOLD
 		get_viewport().set_input_as_handled()
 
-	elif state == HOLD:
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT): state = ROTATE
-	elif state == ROTATE:
-		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT): state = HOLD
-			
+	elif state == HOLD and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT): 
+		state = ROTATE
+	elif state == ROTATE and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT): 
+		state = HOLD
+		
