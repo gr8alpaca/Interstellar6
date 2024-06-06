@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3e1iy7k68pn8"]
 
 [ext_resource type="PackedScene" uid="uid://snpqsqtk148f" path="res://Scenes/Player/player.tscn" id="1_hbpj1"]
-[ext_resource type="PackedScene" uid="uid://mu52igusluh0" path="res://Scenes/Box.tscn" id="2_l17rl"]
+[ext_resource type="PackedScene" uid="uid://mu52igusluh0" path="res://Scenes/Interactables/Box.tscn" id="2_l17rl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0b4qv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -21,6 +21,7 @@ tonemap_mode = 2
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_color = Color(0.128344, 0.128344, 0.128344, 1)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

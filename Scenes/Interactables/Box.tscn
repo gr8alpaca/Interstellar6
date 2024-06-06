@@ -1,20 +1,23 @@
 [gd_scene load_steps=6 format=3 uid="uid://mu52igusluh0"]
 
-[ext_resource type="Material" uid="uid://dfrvafhlns1fx" path="res://Assets/PrototypeTextures/PrototypeOrange.tres" id="1_okdq7"]
 [ext_resource type="Script" path="res://Scripts/Item3D.gd" id="1_v2igj"]
+[ext_resource type="Material" uid="uid://bsegwifmsowy" path="res://Resources/BoxMaterial.tres" id="2_ogv1i"]
 [ext_resource type="Script" path="res://Scripts/Interactable.gd" id="2_ydpv5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_yocdf"]
-material = ExtResource("1_okdq7")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eq7sx"]
 
 [node name="Box" type="RigidBody3D"]
 input_ray_pickable = false
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("1_v2igj")
+debug_material = ExtResource("2_ogv1i")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_yocdf")
+surface_material_override/0 = ExtResource("2_ogv1i")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_eq7sx")

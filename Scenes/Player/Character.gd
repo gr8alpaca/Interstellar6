@@ -43,6 +43,7 @@ var input_dir: Vector2 = Vector2.ZERO:
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Global.player = self
 
 func _on_interaction_transtion(obj: Node3D, is_active: bool) -> void:
 	input_active = !is_active
@@ -85,10 +86,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func on_interact(obj: Object) -> void:
-
-	if not obj is Interactable: return print("NO OBJECT not Interactable")
-	# print("Player function called")
-
 	obj.on_interact()
 
 func _unhandled_input(event: InputEvent) -> void:

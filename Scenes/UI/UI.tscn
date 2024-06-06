@@ -1,12 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1tiji476a1kc"]
+[gd_scene load_steps=6 format=3 uid="uid://d1tiji476a1kc"]
 
-[ext_resource type="Script" path="res://Script/UI.gd" id="1_0g45p"]
-[ext_resource type="Texture2D" uid="uid://buwypf2thwll5" path="res://Asset/Textures/UI/CircleCursor.tres" id="2_wxb0x"]
-[ext_resource type="FontFile" uid="uid://c880bso4h4167" path="res://Asset/Fonts/Lato-Black.ttf" id="3_t6b5d"]
+[ext_resource type="Script" path="res://Scenes/UI/UI.gd" id="1_srrsj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_slomh"]
 line_spacing = 0.0
-font = ExtResource("3_t6b5d")
 font_size = 15
 font_color = Color(1, 1, 1, 0.862745)
 outline_size = 2
@@ -16,7 +13,6 @@ shadow_color = Color(0, 0, 0, 0.701961)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ooeib"]
 line_spacing = 0.0
-font = ExtResource("3_t6b5d")
 font_size = 17
 font_color = Color(1, 1, 1, 0.447059)
 outline_size = 1
@@ -26,7 +22,6 @@ shadow_color = Color(0, 0, 0, 0.701961)
 
 [sub_resource type="LabelSettings" id="LabelSettings_edrq3"]
 line_spacing = 0.0
-font = ExtResource("3_t6b5d")
 font_size = 17
 font_color = Color(1, 1, 1, 0.862745)
 outline_size = 2
@@ -36,7 +31,6 @@ shadow_color = Color(0, 0, 0, 0.701961)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qksus"]
 line_spacing = 0.0
-font = ExtResource("3_t6b5d")
 font_size = 17
 font_color = Color(1, 1, 1, 0.862745)
 outline_size = 2
@@ -46,27 +40,25 @@ shadow_color = Color(0, 0, 0, 0.701961)
 
 [node name="UI" type="CanvasLayer" groups=["UI"]]
 layer = 5
-script = ExtResource("1_0g45p")
+script = ExtResource("1_srrsj")
+cursor_size = Vector2(16, 16)
+cursor_radius = 4.0
+cursor_outline_size = 1.0
 
-[node name="Cursor" type="TextureRect" parent="."]
+[node name="Cursor" type="Control" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(8, 8)
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
-texture = ExtResource("2_wxb0x")
-expand_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="InteractLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -92,6 +84,7 @@ justification_flags = 128
 
 [node name="HBoxDebug" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 16.0
@@ -99,6 +92,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+mouse_filter = 2
 theme_override_constants/separation = 2
 alignment = 1
 
@@ -109,7 +103,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Debug: Value"
 label_settings = SubResource("LabelSettings_ooeib")
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 128
 
@@ -129,5 +123,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 label_settings = SubResource("LabelSettings_qksus")
+horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 128

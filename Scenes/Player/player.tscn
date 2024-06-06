@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://snpqsqtk148f"]
+[gd_scene load_steps=33 format=3 uid="uid://snpqsqtk148f"]
 
 [ext_resource type="ArrayMesh" uid="uid://cky3h8u0w1dox" path="res://Scenes/Player/psxhuman.tres" id="1_cuev2"]
 [ext_resource type="Script" path="res://Scenes/Player/Character.gd" id="1_ynxmx"]
 [ext_resource type="Script" path="res://Scripts/InteractionHandler.gd" id="3_7nr24"]
+[ext_resource type="PackedScene" uid="uid://d1tiji476a1kc" path="res://Scenes/UI/UI.tscn" id="4_cmxdx"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_fl4lc"]
 length = 0.85
@@ -919,6 +920,9 @@ debug_shape_custom_color = Color(0.882353, 0.843137, 0, 0.0784314)
 unique_name_in_owner = true
 transform = Transform3D(1, -1.33227e-15, 2.27374e-13, -1.33227e-15, 1, 0, 0, 0, 1, -2.20268e-13, 0, -1.175)
 gizmo_extents = 0.1
+
+[node name="UI" parent="Camera3D" instance=ExtResource("4_cmxdx")]
+cursor_size = Vector2(16, 16)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_3of3a")
